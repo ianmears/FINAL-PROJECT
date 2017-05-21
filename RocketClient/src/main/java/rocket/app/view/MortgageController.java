@@ -1,6 +1,9 @@
 package rocket.app.view;
 
+import java.text.DecimalFormat;
+
 import eNums.eAction;
+import exceptions.RateException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import rocket.app.MainApp;
+import rocketBase.RateBLL;
 import rocketCode.Action;
 import rocketData.LoanRequest;
 
@@ -19,6 +23,8 @@ public class MortgageController {
 	private TextField txtNew;
 	
 	private MainApp mainApp;
+	
+	private int cScore;
 	
 
 	public void setMainApp(MainApp mainApp) {
@@ -40,13 +46,16 @@ public class MortgageController {
 		});
 	}
 	
-	public void HandleLoanRequestDetails(LoanRequest lRequest)
+	public void HandleLoanRequestDetails(LoanRequest lRequest) throws RateException
 	{
 		//	TODO - RocketClient.HandleLoanRequestDetails
 		//			lRequest is an instance of LoanRequest.
 		//			after it's returned back from the server, the payment (dPayment)
 		//			should be calculated.
 		//			Display dPayment on the form, rounded to two decimal places
+		double dPayment = RateBLL.getRate(cScore);
+		DecimalFormat form = new DecimalFormat("##.00");
+		form.format(dPayment); // 2 Decimal Places
 		
 	}
 }
